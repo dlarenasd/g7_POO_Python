@@ -9,4 +9,4 @@ print(paracetamol.descuento) #0.05
 print(aspirina.descuento) #0.05
 
 paracetamol.descuento = 0.06
-print(paracetamol.descuento)
+print(paracetamol.descuento) #0.06 modificamos el valor del atributo de forma individual al objeto, sin afectar el atributo para los demás objetos de la clase
