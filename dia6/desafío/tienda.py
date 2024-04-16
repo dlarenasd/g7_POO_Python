@@ -29,8 +29,9 @@ class Restaurant(Tienda):
     
     def ingresar_producto(self, nombre_producto: str, precio_producto: int, stock_producto: int):
         producto = Producto(nombre_producto, precio_producto, stock_producto) #RECUERDA QUE RESTAURANT TIENE STOCK 0
-        if nombre_producto in self.lista_productos:
-            producto.add_stock_producto(producto.stock_producto, stock_producto)
+        if producto in self.lista_productos:
+            indice = self.lista_productos.index(producto)
+            self.lista_productos[indice]+= producto
             return "Stock actualizado"
         else:
             self.lista_productos.append(producto)
@@ -43,8 +44,15 @@ class Restaurant(Tienda):
         ] 
         return f"{retorno}{"".join(self.lista_productos)}" 
 
-    def venta_producto(self):    
-        pass
+    def venta_producto(self, nombre_producto:str, cantidad:int):
+        for producto in self.lista_productos:
+            if nombre_producto in self.lista_productos:
+                return producto
+            if cantidad <= producto.stock_producto:  #NO HAY CASO NO FUNCIONA ESTO, FUNCIONABA MÁS CON
+                producto.stock_producto -= cantidad  #PRODUCTO COMO OBJETO DE CLASE PRODUCTO, PERO NO SE PUEDE ESO
+                return "venta realizada"    # LOS PRODUCTOS NO SON INDEPENDIENTES DEL RESTAURANT, SE CREAN DENTRO
+            
+        
     
     
 """ 
@@ -98,4 +106,6 @@ if __name__ == "__main__":
     print(domino.ingresar_producto("dinámico", 1200, 15))
     print(domino.ingresar_producto("italiano", 1500, 15))
     print(domino.listar_productos())
-    
+    print(domino.venta_producto("dinámico", 3))
+    print(domino.listar_productos())
+    print(domino.lista_productos[1])
