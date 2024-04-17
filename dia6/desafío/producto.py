@@ -2,10 +2,7 @@ class Producto():
     def __init__(self, nombre_producto: str, precio_producto:int, stock_producto = 0):
         self.__nombre_producto = nombre_producto
         self.__precio_producto = precio_producto
-        self.__stock_producto = stock_producto
-        if self.stock_producto < 0:
-            stock_producto = 0
-    
+        self.__stock_producto = stock_producto if stock_producto > 0 else 0
 
     @property
     def nombre_producto(self):
@@ -16,7 +13,12 @@ class Producto():
     
     @property
     def stock_producto(self):
+        if self.__stock_producto == 0:
+            return ""
         return self.__stock_producto
+    @stock_producto.setter
+    def stock_producto(self, stock_producto):
+        self.__stock_producto = stock_producto
         
     def __eq__(self, other):
         return self.nombre_producto == other.nombre_producto
@@ -32,4 +34,6 @@ class Producto():
         return self
     
     def __str__(self):
-        return f"Nombre: {self.nombre_producto} \t Precio: {self.precio_producto}\t Stock: {self.stock_producto}\n"
+        if self.__stock_producto <=10 and self.__stock_producto > 0:
+            return f"{self.nombre_producto}\t\t{self.precio_producto}\t\t{self.stock_producto} Pocos productos disponibles\n"
+        return f"{self.nombre_producto}\t\t {self.precio_producto}\t\t{self.stock_producto}\n"
