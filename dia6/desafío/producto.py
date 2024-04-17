@@ -32,8 +32,9 @@ class Producto():
         if self == other:
             self.__stock_producto -= other.stock_producto
         return self
-    
+""" 
     def __str__(self):
         if self.__stock_producto <=10 and self.__stock_producto > 0:
             return f"{self.nombre_producto}\t\t{self.precio_producto}\t\t{self.stock_producto} Pocos productos disponibles\n"
         return f"{self.nombre_producto}\t\t {self.precio_producto}\t\t{self.stock_producto}\n"
+        """

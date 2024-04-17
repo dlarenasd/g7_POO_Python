@@ -92,20 +92,21 @@ Nombre: \t Precio: \t Stock:\n """)
 
 
     def venta_producto(self, nombre_producto:str, cantidad:int):
-        producto = Producto(nombre_producto, 0, cantidad)
-        if producto in self.lista_productos: #---> FALLA LA COMPARACIÓN, A PESAR DE QUE FUNCIONA EN EL INGRESO. YA NO SÉ QUÉ HACER.
-            print("Lo encontré")
-            indice = self.lista_productos.index(producto)
-            if self.lista_productos[indice] >= cantidad:
-                self.lista_productos[indice] -= cantidad
-                return f"Se vendieron {cantidad} {producto}"    
+        objeto = Producto(nombre_producto, 0, cantidad)
+        print(objeto.nombre_producto, self.lista_productos[0].nombre_producto)
+        for i in range (len(self.lista_productos)): #---> FALLA LA COMPARACIÓN, A PESAR DE QUE FUNCIONA EN EL INGRESO. YA NO SÉ QUÉ HACER.
+            print(objeto.nombre_producto, self.lista_productos[i].nombre_producto)
+            if objeto.nombre_producto == self.lista_productos[i].nombre_producto:
+                print("Lo encontré")
+                if self.lista_productos[i].stock_producto >= cantidad:
+                    self.lista_productos[i].stock_producto -= cantidad
+                    return f"Se vendieron {cantidad} {self.lista_productos[i].nombre_producto}"    
+                else:
+                    print(f"Se vendieron {self.lista_productos[i].stock_producto}{self.lista_productos[i].nombre_producto}")
+                    del(self.lista_productos[i])
             else:
-                print(f"Se vendieron {producto.stock_producto}{producto}")
-                del(self.lista_productos[indice])
-        else:
-            return "No se encuentra el producto solicitado"
-    
-                
+                return "No se encuentra el producto solicitado"
+
             
         
         
@@ -147,6 +148,7 @@ class Farmacia(Tienda):
 
 
 if __name__ == "__main__":
+    """
     domino = Restaurant("dominó",1500) #creación de un objeto de clase Restaurant para validar (nombre_local, cost_delivery)
     print(domino.ingresar_producto("completo", 1200)) #validar ingreso en restaurant
     print(domino.ingresar_producto("completo", 1500)) #validar que no sobreescriba el precio si ya está ingresado
@@ -155,13 +157,15 @@ if __name__ == "__main__":
     print(domino.lista_productos[1]) #imprimir cómo se muestra un solo objeto de la lista
     print(domino.listar_productos()) #validar funcionamiento de listar_productos
     print("")
+    
+    print(unimarc.lista_productos[1])
+    print(unimarc.listar_productos())
+    """    
     unimarc = Supermercado("Unimarc", 1000) #creación de un objeto de clase Supermercado para validar (nombre_local, cost_delivery)
     print(unimarc.ingresar_producto("arroz", 800, 30 ))
     print(unimarc.ingresar_producto("arroz", 800, 20 ))
     print(unimarc.ingresar_producto("atún", 750, 25 ))
     print(unimarc.ingresar_producto("café", 1000, 8 ))
-    print(unimarc.lista_productos[1])
-    print(unimarc.listar_productos())
     print(unimarc.venta_producto("atún", 24))
 
 
