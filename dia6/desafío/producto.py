@@ -13,8 +13,6 @@ class Producto():
     
     @property
     def stock_producto(self):
-        if self.__stock_producto == 0:
-            return ""
         return self.__stock_producto
     @stock_producto.setter
     def stock_producto(self, stock_producto):

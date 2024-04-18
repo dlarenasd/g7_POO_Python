@@ -46,12 +46,10 @@ class Restaurant(Tienda):
     
     def listar_productos(self): #Método para poder mostrar la lista de productos
         retorno = (""":::::::::::LISTA DE PRODUCTOS:::::::::::\n
-Nombre: \t Precio: \n """) #variable con texto base
-        self.lista_productos=[
-            f"{producto}" for producto in self.lista_productos #muestra el string de producto (está en su script) para cada producto en la lista
-        ] 
-        return f"{retorno}{"".join(self.lista_productos)}" #retorna el mensaje base, debajo de él entrega la concatenación 
-                                                            #de los elementos de la lista_productos recién modificada 
+Nombre: \t Precio: \t Stock:\n """) #variable con texto base
+        lista_string = [f"{producto}" for producto in self.lista_productos] #traspaso de los elementos de la lista productos a un string ordenado
+        return f"{retorno}{"".join(lista_string)}"  #retorna el mensaje base, debajo de él entrega la concatenación 
+                                                            #de los elementos de la lista recién hecha 
                                                             #se explicita que el retorno debe ser un string en la pauta
 
     def venta_producto(self, nombre_producto:str, cantidad:int):
@@ -81,35 +79,28 @@ class Supermercado(Tienda): #Mismo esqueleto del restaurant
             self.lista_productos.append(producto) #si no está en la lista se incluye
             return "Producto ingresado" # mensaje de confirmación
     
-    def listar_productos(self): #mismo método de antes, ahora la variable retorno incluye el stock
+    def listar_productos(self): #mismo método de antes
         retorno = (""":::::::::::LISTA DE PRODUCTOS:::::::::::\n
 Nombre: \t Precio: \t Stock:\n """)
-        self.lista_productos=[
-            f"{producto}" for producto in self.lista_productos
-        ] 
-        return f"{retorno}{"".join(self.lista_productos)}" 
+        lista_string = [f"{producto}" for producto in self.lista_productos]
+        return f"{retorno}{"".join(lista_string)}" 
 
-
-
-    def venta_producto(self, nombre_producto:str, cantidad:int):
-        objeto = Producto(nombre_producto, 0, cantidad)
-        print(objeto.nombre_producto, self.lista_productos[0].nombre_producto)
-        for i in range (len(self.lista_productos)): #---> FALLA LA COMPARACIÓN, A PESAR DE QUE FUNCIONA EN EL INGRESO. YA NO SÉ QUÉ HACER.
-            print(objeto.nombre_producto, self.lista_productos[i].nombre_producto)
-            if objeto.nombre_producto == self.lista_productos[i].nombre_producto:
-                print("Lo encontré")
-                if self.lista_productos[i].stock_producto >= cantidad:
-                    self.lista_productos[i].stock_producto -= cantidad
-                    return f"Se vendieron {cantidad} {self.lista_productos[i].nombre_producto}"    
-                else:
-                    print(f"Se vendieron {self.lista_productos[i].stock_producto}{self.lista_productos[i].nombre_producto}")
-                    del(self.lista_productos[i])
+    def venta_producto(self, nombre_producto:str, cantidad:int): #método de venta, se ingresa un nombre de producto y una cantidad
+        objeto = Producto(nombre_producto, 0, cantidad) #se elabora un objeto como producto para comparar a continuación
+        if objeto in self.lista_productos: #compara y busca un objeto con el mimso nombre en la lista
+            indice = self.lista_productos.index(objeto) #ubica su índice
+            if self.lista_productos[indice].stock_producto == 0: #si el stock es 0 lo notifica
+                return "Producto sin stock"
+            elif self.lista_productos[indice].stock_producto >= cantidad: #si hay mas stock que lo que piden 
+                self.lista_productos[indice].stock_producto -= cantidad #resta la cantidad al stock del producto
+                return f"Se vendieron {cantidad} {self.lista_productos[indice].nombre_producto}"    #se retorna un mensaje
             else:
-                return "No se encuentra el producto solicitado"
+                print(f"Se vendieron {self.lista_productos[indice].stock_producto} {self.lista_productos[indice].nombre_producto}")
+                self.lista_productos[indice].stock_producto -= self.lista_productos[indice].stock_producto #si hay menos stock que cantidad
+                return "Se vendieron todos los productos disponibles" #se resta el stock consigo mismo, deja el stock en 0 y notifica cuánto vendió
+        else:
+            return "No se encuentra el producto solicitado" #si no hay coincidencia lo notifica
 
-            
-        
-        
         
 class Farmacia(Tienda):
     def __init__(self, nombre_tienda:str, costo_delivery:int):
@@ -125,7 +116,7 @@ class Farmacia(Tienda):
         return self.__costo_delivery
     
     def ingresar_producto(self, nombre_producto: str, precio_producto: int, stock_producto: int):
-        producto = Producto(nombre_producto, precio_producto, stock_producto) #RECUERDA QUE RESTAURANT TIENE STOCK 0
+        producto = Producto(nombre_producto, precio_producto, stock_producto)
         if producto in self.lista_productos:
             indice = self.lista_productos.index(producto)
             self.lista_productos[indice]+= producto
@@ -135,20 +126,32 @@ class Farmacia(Tienda):
             return "Producto ingresado"
     
     def listar_productos(self):
-        retorno = (":::::::::::LISTA DE PRODUCTOS:::::::::::\n")
-        self.lista_productos=[
-            f"{producto}" for producto in self.lista_productos
-        ] 
-        return f"{retorno}{"".join(self.lista_productos)}" 
+        retorno = (""":::::::::::LISTA DE PRODUCTOS:::::::::::\n
+Nombre: \t Precio: \t Stock:\n """)        
+        lista_string = [f"{producto}" for producto in self.lista_productos]
+        return f"{retorno}{"".join(lista_string)}" 
 
-    def venta_producto(self):
-        return super().venta_producto()
-    pass
+    def venta_producto(self, nombre_producto:str, cantidad:int):
+        objeto = Producto(nombre_producto, 0, cantidad)
+        if cantidad > 3: #única diferencia: si pides mas de 3 unidades en la farmacia el programa rechaza la venta
+            return "Venta rechazada, no se puede vender más de 3 unidades"
+        elif objeto in self.lista_productos:
+            indice = self.lista_productos.index(objeto)
+            if self.lista_productos[indice].stock_producto == 0:
+                return "Producto sin stock"
+            elif self.lista_productos[indice].stock_producto >= cantidad:
+                self.lista_productos[indice].stock_producto -= cantidad
+                return f"Se vendieron {cantidad} {self.lista_productos[indice].nombre_producto}"    
+            else:
+                print(f"Se vendieron {self.lista_productos[indice].stock_producto} {self.lista_productos[indice].nombre_producto}")
+                self.lista_productos[indice].stock_producto -= self.lista_productos[indice].stock_producto
+                return "Se vendieron todos los productos disponibles"
+        else:
+            return "No se encuentra el producto solicitado"
 
 
 
 if __name__ == "__main__":
-    """
     domino = Restaurant("dominó",1500) #creación de un objeto de clase Restaurant para validar (nombre_local, cost_delivery)
     print(domino.ingresar_producto("completo", 1200)) #validar ingreso en restaurant
     print(domino.ingresar_producto("completo", 1500)) #validar que no sobreescriba el precio si ya está ingresado
@@ -157,16 +160,30 @@ if __name__ == "__main__":
     print(domino.lista_productos[1]) #imprimir cómo se muestra un solo objeto de la lista
     print(domino.listar_productos()) #validar funcionamiento de listar_productos
     print("")
-    
-    print(unimarc.lista_productos[1])
-    print(unimarc.listar_productos())
-    """    
     unimarc = Supermercado("Unimarc", 1000) #creación de un objeto de clase Supermercado para validar (nombre_local, cost_delivery)
     print(unimarc.ingresar_producto("arroz", 800, 30 ))
-    print(unimarc.ingresar_producto("arroz", 800, 20 ))
+    print(unimarc.ingresar_producto("arroz", 200, 20 ))
     print(unimarc.ingresar_producto("atún", 750, 25 ))
     print(unimarc.ingresar_producto("café", 1000, 8 ))
-    print(unimarc.venta_producto("atún", 24))
-
+    print("")
+    print(unimarc.listar_productos())
+    print(unimarc.venta_producto("atún", 26))
+    print(unimarc.listar_productos())
+    print("")
+    simi = Farmacia("Dr.Simi", 0)
+    print(simi.ingresar_producto("paracetamol", 800, 30 ))
+    print(simi.ingresar_producto("paracetamol", 200, 20 ))
+    print(simi.ingresar_producto("ibuprofeno", 750, 25 ))
+    print(simi.ingresar_producto("sertralina", 1000, 8 ))
+    print("")
+    print(simi.listar_productos())
+    print(simi.venta_producto("sertralina", 5))
+    print(simi.venta_producto("sertralina", 3))
+    print(simi.venta_producto("sertralina", 3))
+    print(simi.listar_productos())
+    print(simi.venta_producto("sertralina", 3))
+    print(simi.venta_producto("sertralina", 3))
+    print(simi.listar_productos())
+    
 
     
