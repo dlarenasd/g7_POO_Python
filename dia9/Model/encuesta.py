@@ -1,5 +1,14 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
+
+""" 
+Flavia Cayún
+Diego Larenas
+Yessenia Millar
+Jimena Traipe
+Carlos Urrutia
+Matías Valdivia
+"""
 from pregunta import Pregunta
 from usuario import Usuario
 class Encuesta:
