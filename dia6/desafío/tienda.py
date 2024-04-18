@@ -46,7 +46,7 @@ class Restaurant(Tienda):
     
     def listar_productos(self): #Método para poder mostrar la lista de productos
         retorno = (""":::::::::::LISTA DE PRODUCTOS:::::::::::\n
-Nombre: \t Precio: \t Stock:\n """) #variable con texto base
+Nombre: \t Precio: \t Stock:\n""") #variable con texto base
         lista_string = [f"{producto}" for producto in self.lista_productos] #traspaso de los elementos de la lista productos a un string ordenado
         return f"{retorno}{"".join(lista_string)}"  #retorna el mensaje base, debajo de él entrega la concatenación 
                                                             #de los elementos de la lista recién hecha 
@@ -81,7 +81,7 @@ class Supermercado(Tienda): #Mismo esqueleto del restaurant
     
     def listar_productos(self): #mismo método de antes
         retorno = (""":::::::::::LISTA DE PRODUCTOS:::::::::::\n
-Nombre: \t Precio: \t Stock:\n """)
+Nombre: \t Precio: \t Stock:\n""")
         lista_string = [f"{producto}" for producto in self.lista_productos]
         return f"{retorno}{"".join(lista_string)}" 
 
@@ -127,7 +127,7 @@ class Farmacia(Tienda):
     
     def listar_productos(self):
         retorno = (""":::::::::::LISTA DE PRODUCTOS:::::::::::\n
-Nombre: \t Precio: \t Stock:\n """)        
+Nombre: \t Precio: \t Stock:\n""")        
         lista_string = [f"{producto}" for producto in self.lista_productos]
         return f"{retorno}{"".join(lista_string)}" 
 

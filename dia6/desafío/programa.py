@@ -1,5 +1,5 @@
 from tienda import Tienda, Restaurant, Supermercado, Farmacia
-from producto import Producto
+
 
 print("::::::::::BIENVENIDO A TU TIENDA:::::::::: ")
 
