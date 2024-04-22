@@ -21,16 +21,16 @@ class Foto():
     def ancho(self) -> int: #getter
         return self.__ancho
     @ancho.setter
-    def ancho(self, ancho:int): #setter con control de errores
+    def ancho(self, ancho:int): #setter con control de excepciones
         try:
             if ancho > 0 and ancho < self.MAX: #caso sin error
                 self.__ancho = ancho #setter funciona
             elif ancho < 1: #error por dato menor a 1
-                raise DimensionError("El valor del ancho debe ser mayor que 0.", ancho, self.MAX)
+                raise DimensionError("El valor del ancho debe ser mayor que 0.", ancho)
             elif ancho > self.MAX: #error por dato mayor que el máximo
-                raise DimensionError("El valor del ancho excede el máximo.", ancho, self.MAX)
+                raise DimensionError("El valor del ancho excede el máximo. \n", ancho, self.MAX)
         except DimensionError as dError: #impresión del error en caso de un Dimension Error
-            print(dError)
+            print("ERROR: ",dError)
         except TypeError: #En caso de errores de tipo
             print("Error en el ingreso del ancho")
         else:
@@ -48,11 +48,11 @@ class Foto():
             if alto > 0 and alto < self.MAX:
                 self.__alto = alto
             elif alto < 1 :
-                raise DimensionError("El valor del alto debe ser mayor que 0.", alto, self.MAX)
+                raise DimensionError("El valor del alto debe ser mayor que 0.", alto)
             elif alto > self.MAX:
-                raise DimensionError("El valor del alto excede el máximo.", alto, self.MAX)
+                raise DimensionError("El valor del alto excede el máximo. \n", alto, self.MAX)
         except DimensionError as dError:
-            print(dError)
+            print("ERROR: ",dError)
         except TypeError:
             print("Error en el ingreso del alto")
         else:
