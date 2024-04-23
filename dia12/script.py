@@ -15,13 +15,15 @@ try:
                 print("Ha habido un error:", e ) #también se imprime dicho error por consola
             else:
                 print(f"Usuario creado: {datos_linea.get("nombre")} {datos_linea.get("apellido")}") #si no hay errores, imprime el usuario creado con su nombre y apellido
-            finally:
-                usuarios.close()
-                usuariolog.close()
+
 except Exception as error: #prueba, en caso de no estar el archivo lanza este error
     with open(f"dia12/logs/error_archivo.log", "a+",encoding="utf-8") as archivolog:
         archivolog.write(f"Error al abrir el archivo.\n\tExcepción: {error}\n")
     archivolog.close()
+finally:
+    usuarios.close()
+    usuariolog.close()
+
 
 
 
