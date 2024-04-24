@@ -1,0 +1,10 @@
+{"nombre": "Pan", "precio": "1000"}
+{"nombre": "Palta", "precio": "1200"
+{"nombre": "Tomate", "precio": "500"}
+{"nombre": "Salchicha", "precio": "800"}
+{"nombre": "Mostaza", "precio": "600"}
+{"nombre": "Mayonesa", "precio": "1500}
+{"nombre": "Ketchup", "precio": "900"}
+{"nombre": "Chucrut", "precio": "3000"}
+{"nombre": "Ají", "precio": "300"}
+{"nombre" "Porotos Verdes", "precio": "1000"}
