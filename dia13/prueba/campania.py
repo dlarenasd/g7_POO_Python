@@ -60,8 +60,8 @@ class Campaña(): #clase que instacia objetos campaña
                 contador_social+=1
         #se elabora un retorno con todo el string para entregar cuando impriman una campaña    
         retorno = f"""
-        Nombre de la campaña: {self.nombre}
-        Anuncios: {contador_videos} Video , {contador_display} Display, {contador_social} Social
+Nombre de la campaña: {self.nombre}
+Anuncios: {contador_videos} Video , {contador_display} Display, {contador_social} Social
         """ #cada contador reporta cuántos objetos hay de cada clase
         return retorno
     

@@ -20,13 +20,13 @@ class Anuncio(ABC): #clase abstracta de Anuncios
 
     @staticmethod
     def mostrar_formatos(): #método estático que usa colaboración
-        v = Video("", "", 1,) #instancias de prueba para el método
+        v = Video("", "", 1) #instancias de prueba para el método
         d = Display(1,1,"","")
         s = Social(1,1,"","")
         print(f"""
-Formato 1: {Anuncio.FORMATOS[0]}\n===============\nSubtipos:\n- {Video.SUB_TIPOS[0]}\n- {Video.SUB_TIPOS[1]} \n
-Formato 2: {Anuncio.FORMATOS[1]}\n===============\nSubtipos:\n- {Display.SUB_TIPOS[0]}\n- {Display.SUB_TIPOS[1]} \n
-Formato 3: {Anuncio.FORMATOS[2]}\n===============\nSubtipos:\n- {Social.SUB_TIPOS[0]}\n- {Social.SUB_TIPOS[1]}
+Formato 1: {Anuncio.FORMATOS[0]}\n===============\nSubtipos:\n- {v.SUB_TIPOS[0]}\n- {v.SUB_TIPOS[1]} \n
+Formato 2: {Anuncio.FORMATOS[1]}\n===============\nSubtipos:\n- {d.SUB_TIPOS[0]}\n- {d.SUB_TIPOS[1]} \n
+Formato 3: {Anuncio.FORMATOS[2]}\n===============\nSubtipos:\n- {s.SUB_TIPOS[0]}\n- {s.SUB_TIPOS[1]}
 """) #método retorna cada uno de los formatos con sus sub-tipos usando colaboración (usa instancias "independientes" dentro del método para hacerlo funcionar)
     
     @abstractmethod
@@ -105,7 +105,7 @@ class Social(Anuncio):#igual que video, pero con otra tupla
     def redimensionar_anuncio(self):
         print("REDIMENSIONAMIENTO DE ANUNCIOS DE REDES SOCIALES NO IMPLEMENTADO AÚN")
     
-if __name__ == "__main__":
+if __name__ == "__main__":  #pruebas del script, métodos de clase e instancia
     anuncio = Video("", "", -60, -5,-5 )
     anuncio.mostrar_formatos()
     print(anuncio.duracion)
