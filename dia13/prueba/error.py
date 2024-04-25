@@ -1,6 +1,15 @@
 class Error(Exception): #error base para heredar exception
     pass
 
+class LargoExcedidoError(Error):
+    pass
+
+class SubTipoInvalidoError(Error):
+    pass
+
+""" 
+Yo los prefería así, pero según el diagrama están vacíos
+
 class LargoExcedidoError(Error):#primer error específico del programa
     def __init__(self, mensaje, largo:int, limite:int): #recibe un mensaje, un largo y un límite
         self.mensaje = mensaje
@@ -16,3 +25,4 @@ class SubTipoInvalidoError(Error): #segundo error específico del programa
     def __str__(self) -> str:
         return f"{self.mensaje}. Los sub-tipos disponibles son {self.tipos_disponibles}" # retorna un mensaje usando los atributos 
 
+"""

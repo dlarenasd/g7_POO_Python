@@ -7,25 +7,30 @@ class Campaña(): #clase que instacia objetos campaña
         self.__nombre = nombre
         self.__fecha_inicio = fecha_inicio
         self.__fecha_termino = fecha_termino
-        self.__anuncios = [] #lista vacía que va a almacenar los objetos de clase video, display y/o social
-        for anuncio in anuncios: #recorro la lista ingresada por parámetro
-            if anuncio["formato"]=="Video": #busca la clave formato, si su formato es video, instancia un video
-                self.__anuncios.append(Video(anuncio["url_archivo"],anuncio["url_clic"], anuncio["duracion"])) #saca los parámetros que necesita del diccionario
-            elif anuncio["formato"]=="Display": #mismo procedimiento con display
-                self.__anuncios.append(Display(anuncio["ancho"], anuncio["alto"], anuncio["url_archivo"], anuncio["url_clic"]))
-            elif anuncio["formato"]=="Social": #y con social
-                self.__anuncios.append(Social(anuncio["ancho"], anuncio["alto"], anuncio["url_archivo"], anuncio["url_clic"]))
+        self.__anuncios = [self.instanciar_anuncios(dicc) for dicc in anuncios] #lista vacía que va a almacenar los objetos de clase video, display y/o social
     
+    def instanciar_anuncios(self, anuncio:dict):
+        if anuncio["FORMATO"]=="Video": #busca la clave formato, si su formato es video, instancia un video
+            return Video(anuncio["url_archivo"],anuncio["url_clic"], anuncio["sub_tipo"], anuncio["duracion"]) #saca los parámetros que necesita del diccionario
+        elif anuncio["FORMATO"]=="Display": #mismo procedimiento con display
+            return Display(anuncio["ancho"], anuncio["alto"], anuncio["url_archivo"], anuncio["url_clic"], anuncio["sub_tipo"])
+        elif anuncio["FORMATO"]=="Social": #y con social
+            return Social(anuncio["ancho"], anuncio["alto"], anuncio["url_archivo"], anuncio["url_clic"], anuncio["sub_tipo"])
+        
+        
     @property
     def nombre(self):#getter
         return self.__nombre
     @nombre.setter  #setter
     def nombre(self, nombre):
-        if len(nombre) <=250: #validación del largo del nombre de la campaña
-            self.__nombre = nombre
-            return self.__nombre
-        else: #si excede el límite se lanza un error específico del programa, al que se le ingresa un mensaje, los caracteres ingresados y el límite
-            raise LargoExcedidoError("Error: El nombre excede el largo permitido.", len(nombre), 250)
+    #  try: SI AQUÍ USO TRY/EXCEPT NO PUEDO USARLO EN EL OTRO SCRIPT, POR LO QUE NO GENERA UN ERROR.LOG
+            if len(nombre) <=250: #validación del largo del nombre de la campaña
+                self.__nombre = nombre
+                return self.__nombre
+            else: #si excede el límite se lanza un error específico del programa
+                raise LargoExcedidoError
+    # except LargoExcedidoError as error:
+    #     print(error)
 
     @property
     def fecha_inicio(self): #getter

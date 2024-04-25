@@ -3,33 +3,23 @@ from error import SubTipoInvalidoError
 #se importan las clases necesarias para hacer una clase abstracta y gatillar un error específico del programa
 
 class Anuncio(ABC): #clase abstracta de Anuncios
-    SUB_TIPOS = None #atributos de clase que va a heredar
     
     FORMATOS = ("Video", "Display", "Social") #formatos de anuncio disponibles
     def __init__(self, ancho:int, alto:int, url_archivo:str, url_clic:str, sub_tipo:str): #constructor
-        if ancho <= 0: #validar que si ancho y/o alto son menores a uno pasen a valer uno, en el caso contrario toman el valor ingresado por parámtro
-            self.__ancho = 1
-        else:
-            self.__ancho = ancho
-        if alto <= 0:
-            self.__alto = 1
-        else:
-            self.__alto = alto
+        self.__ancho = ancho if ancho >0 else 1
+        self.__alto = alto if alto > 0 else 1
         self.__url_archivo = url_archivo
         self.__url_clic = url_clic
         self.__sub_tipo = sub_tipo
 
     @staticmethod
     def mostrar_formatos(): #método estático que usa colaboración
-        v = Video("", "", 1) #instancias de prueba para el método
-        d = Display(1,1,"","")
-        s = Social(1,1,"","")
         print(f"""
-Formato 1: {Anuncio.FORMATOS[0]}\n===============\nSubtipos:\n- {v.SUB_TIPOS[0]}\n- {v.SUB_TIPOS[1]} \n
-Formato 2: {Anuncio.FORMATOS[1]}\n===============\nSubtipos:\n- {d.SUB_TIPOS[0]}\n- {d.SUB_TIPOS[1]} \n
-Formato 3: {Anuncio.FORMATOS[2]}\n===============\nSubtipos:\n- {s.SUB_TIPOS[0]}\n- {s.SUB_TIPOS[1]}
-""") #método retorna cada uno de los formatos con sus sub-tipos usando colaboración (usa instancias "independientes" dentro del método para hacerlo funcionar)
-    
+Formato 1: {Anuncio.FORMATOS[0]}\n===============\nSubtipos:\n- {Video.SUB_TIPOS[0]}\n- {Video.SUB_TIPOS[1]} \n
+Formato 2: {Anuncio.FORMATOS[1]}\n===============\nSubtipos:\n- {Display.SUB_TIPOS[0]}\n- {Display.SUB_TIPOS[1]} \n
+Formato 3: {Anuncio.FORMATOS[2]}\n===============\nSubtipos:\n- {Social.SUB_TIPOS[0]}\n- {Social.SUB_TIPOS[1]}
+""") #método retorna cada uno de los formatos con sus sub-tipos usando colaboración 
+            
     @abstractmethod
     def comprimir_anuncio(self): #métodos abstractos que deben ser implementados en las sub-clases
         pass
@@ -42,21 +32,20 @@ Formato 3: {Anuncio.FORMATOS[2]}\n===============\nSubtipos:\n- {s.SUB_TIPOS[0]}
         return self.__sub_tipo
     @sub_tipo.setter #setter
     def sub_tipo(self, tipo):
-        if tipo in self.SUB_TIPOS: #validación al modificar el sub-tipo, si está dentro de la tupla lo asigna
-            self.__sub_tipo = tipo
-            return self.__sub_tipo
-        else: #en el caso contrario gatilla un error específico
-            raise SubTipoInvalidoError("Error: Subtipo no válido", self.SUB_TIPOS) #al lanzar el error se incluye un mensaje y la tupla de opciones
-
+        # try: SI AQUÍ USO TRY/EXCEPT NO PUEDO USARLO EN EL OTRO SCRIPT, POR LO QUE NO GENERA UN ERROR.LOG
+            if tipo not in self.SUB_TIPOS: #validación al modificar el sub-tipo, si está dentro de la tupla lo asigna
+                raise SubTipoInvalidoError #se lanza el error
+            else: 
+                self.__sub_tipo = tipo
+        # except SubTipoInvalidoError as error:
+        #   print(error)
+            
     @property
     def ancho(self): #getter
         return self.__ancho
     @ancho.setter #setter
     def ancho(self, ancho:int):
-        if ancho <= 0: #validar que si ancho y/o alto son menores a uno pasen a valer uno, en el caso contrario toman el valor ingresado por parámtro
-            self.__ancho = 1
-        else:
-            self.__ancho = ancho
+        self.__ancho = ancho if ancho > 0 else 1
         return self.__ancho
     
     @property
@@ -64,10 +53,7 @@ Formato 3: {Anuncio.FORMATOS[2]}\n===============\nSubtipos:\n- {s.SUB_TIPOS[0]}
         return self.__alto
     @alto.setter #setter
     def alto(self, alto:int):
-        if alto <= 0: #validar que si ancho y/o alto son menores a uno pasen a valer uno, en el caso contrario toman el valor ingresado por parámtro
-            self.__alto = 1
-        else:
-            self.__alto = alto
+        self.__ancho = alto if alto >0 else 1
         return self.__alto
     
     @property
@@ -96,16 +82,10 @@ Formato 3: {Anuncio.FORMATOS[2]}\n===============\nSubtipos:\n- {s.SUB_TIPOS[0]}
 
 class Video(Anuncio): #clase video, hija de anuncio
     SUB_TIPOS = ("instream", "outstream") #tiene una tupla con dos sub_tipos disponibles
-    def __init__(self, url_archivo: str, url_clic: str, duracion:int, ancho = 1, alto = 1): #constructor heredado y modificado
-        if ancho != 1: #validar valores de ancho y alto y asignar valores por defecto
-            ancho = 1
-        if alto != 1:
-            alto = 1
-        super().__init__(ancho, alto, url_archivo, url_clic)
-        if duracion <= 0: #incluir validación a parámetro nuevo
-            self.__duracion = 5
-        else: 
-            self.__duracion = duracion
+    
+    def __init__(self, url_archivo: str, url_clic: str, sub_tipo: str, duracion:int): #constructor heredado y modificado
+        super().__init__(1, 1, url_archivo, url_clic, sub_tipo)
+        self.__duracion = duracion if duracion > 0 else 5
         
     def comprimir_anuncio(self):
         print("COMPRESIÓN DE VIDEO NO IMPLEMENTADA AÚN") #métodos abstractos sin implementar
@@ -117,10 +97,21 @@ class Video(Anuncio): #clase video, hija de anuncio
         return self.__duracion
     @duracion.setter  #setter
     def duracion(self, duracion):
-        if duracion <= 0:
-            self.__duracion = 5
-        else: 
-            self.__duracion = duracion
+        self.__duracion = duracion if duracion > 0 else 5
+    @property #modificar el setter, para que no puedan modificar ancho
+    def ancho(self):
+        return self.__ancho
+    @ancho.setter
+    def ancho(self):
+        pass
+    
+    @property #modificar el setter, para que no puedan modificar alto
+    def alto(self):
+        return self.__alto
+    @alto.setter
+    def alto(self):
+        pass
+    
     
 class Display(Anuncio): #igual que video, pero con otra tupla
     SUB_TIPOS = ("tradicional", "native")
