@@ -4,9 +4,9 @@ from error import SubTipoInvalidoError
 
 class Anuncio(ABC): #clase abstracta de Anuncios
     SUB_TIPOS = None #atributos de clase que va a heredar
-    __sub_tipo = None
+    
     FORMATOS = ("Video", "Display", "Social") #formatos de anuncio disponibles
-    def __init__(self, ancho:int, alto:int, url_archivo:str, url_clic:str): #constructor
+    def __init__(self, ancho:int, alto:int, url_archivo:str, url_clic:str, sub_tipo:str): #constructor
         if ancho <= 0: #validar que si ancho y/o alto son menores a uno pasen a valer uno, en el caso contrario toman el valor ingresado por parámtro
             self.__ancho = 1
         else:
@@ -17,6 +17,7 @@ class Anuncio(ABC): #clase abstracta de Anuncios
             self.__alto = alto
         self.__url_archivo = url_archivo
         self.__url_clic = url_clic
+        self.__sub_tipo = sub_tipo
 
     @staticmethod
     def mostrar_formatos(): #método estático que usa colaboración
@@ -46,6 +47,36 @@ Formato 3: {Anuncio.FORMATOS[2]}\n===============\nSubtipos:\n- {s.SUB_TIPOS[0]}
             return self.__sub_tipo
         else: #en el caso contrario gatilla un error específico
             raise SubTipoInvalidoError("Error: Subtipo no válido", self.SUB_TIPOS) #al lanzar el error se incluye un mensaje y la tupla de opciones
+
+    @property
+    def ancho(self): #getter
+        return self.__ancho
+    @ancho.setter #setter
+    def ancho(self, ancho:int):
+        if ancho <= 0: #validar que si ancho y/o alto son menores a uno pasen a valer uno, en el caso contrario toman el valor ingresado por parámtro
+            self.__ancho = 1
+        else:
+            self.__ancho = ancho
+        return self.__ancho
+    
+    @property
+    def alto(self): #getter
+        return self.__alto
+    @alto.setter #setter
+    def alto(self, alto:int):
+        if alto <= 0: #validar que si ancho y/o alto son menores a uno pasen a valer uno, en el caso contrario toman el valor ingresado por parámtro
+            self.__alto = 1
+        else:
+            self.__alto = alto
+        return self.__alto
+    
+    @property
+    def url_archivo(self): #getter
+        return self.__url_archivo
+    @url_archivo.setter #setter
+    def url_archivo(self, url_archivo:str):
+        self.__url_archivo = url_archivo
+        return self.__url_archivo
 
     @property
     def url_archivo(self): #getter

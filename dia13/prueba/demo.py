@@ -22,7 +22,7 @@ except Exception as error:
         log.close() # cierre del archivo que se abrió para escribir el error
         
 try: #mismo procedimiento con el otro error específico
-    campaña_demo.anuncios[0].sub_tipo = input("Ingrese el nuevo sub-tipo para el anuncio:\n").lower()
+    campaña_demo.anuncios[0].sub_tipo = input(f"Ingrese el nuevo sub-tipo para el anuncio: [disponibles:{campaña_demo.anuncios[0].SUB_TIPOS}] \n").lower()
 except Exception as error:
     print(f"{error}\n")
     with open("dia13/prueba/logs/error.log", "a+",encoding="utf-8") as log:
