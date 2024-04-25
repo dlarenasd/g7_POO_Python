@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from error import SubTipoInvalidoError
 #se importan las clases necesarias para hacer una clase abstracta y gatillar un error específico del programa
+
 class Anuncio(ABC): #clase abstracta de Anuncios
     SUB_TIPOS = None #atributos de clase que va a heredar
     __sub_tipo = None
@@ -26,7 +27,7 @@ class Anuncio(ABC): #clase abstracta de Anuncios
 Formato 1: {Anuncio.FORMATOS[0]}\n===============\nSubtipos:\n- {Video.SUB_TIPOS[0]}\n- {Video.SUB_TIPOS[1]} \n
 Formato 2: {Anuncio.FORMATOS[1]}\n===============\nSubtipos:\n- {Display.SUB_TIPOS[0]}\n- {Display.SUB_TIPOS[1]} \n
 Formato 3: {Anuncio.FORMATOS[2]}\n===============\nSubtipos:\n- {Social.SUB_TIPOS[0]}\n- {Social.SUB_TIPOS[1]}
-""") #método retorna cada uno de los formatos con sus sub-tipos usando colaboración
+""") #método retorna cada uno de los formatos con sus sub-tipos usando colaboración (usa instancias "independientes" dentro del método para hacerlo funcionar)
     
     @abstractmethod
     def comprimir_anuncio(self): #métodos abstractos que deben ser implementados en las sub-clases
@@ -45,7 +46,6 @@ Formato 3: {Anuncio.FORMATOS[2]}\n===============\nSubtipos:\n- {Social.SUB_TIPO
             return self.__sub_tipo
         else: #en el caso contrario gatilla un error específico
             raise SubTipoInvalidoError("Error: Subtipo no válido", self.SUB_TIPOS) #al lanzar el error se incluye un mensaje y la tupla de opciones
-
 
     @property
     def url_archivo(self): #getter
