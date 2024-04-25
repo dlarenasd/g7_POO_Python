@@ -1,0 +1,9 @@
+[2024/04/24, 16:04:16] Error: El nombre excede el largo permitido. Ingresó 437 caracteres y el límite es 250
+[2024/04/24, 16:04:16] Error: Subtipo no válido
+[2024/04/24, 16:05:05] Error: El nombre excede el largo permitido. Ingresó 437 caracteres y el límite es 250
+[2024/04/24, 16:05:05] Error: Subtipo no válido
+[2024/04/24, 16:06:27] Error: El nombre excede el largo permitido. Ingresó 437 caracteres y el límite es 250
+[2024/04/24, 16:10:43] Error: El nombre excede el largo permitido. Ingresó 437 caracteres y el límite es 250.
+[2024/04/24, 16:10:43] Error: Subtipo no válido. Los sub-tipos disponibles son ('instream', 'outstream')
+[2024/04/24, 16:11:19] Error: El nombre excede el largo permitido. Ingresó 437 caracteres y el límite es 250.
+[2024/04/24, 16:11:19] Error: Subtipo no válido. Los sub-tipos disponibles son ('instream', 'outstream')
