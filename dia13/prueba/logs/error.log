@@ -30,3 +30,6 @@
 [2024/04/25, 14:57:26] ERROR: El sub-tipo ingresado no corresponde con este anuncio. <class 'error.SubTipoInvalidoError'>
 [2024/04/25, 14:58:00] ERROR: El largo ingresado excede el máximo. <class 'error.LargoExcedidoError'>
 [2024/04/25, 14:58:00] ERROR: El sub-tipo ingresado no corresponde con este anuncio. <class 'error.SubTipoInvalidoError'>
+[2024/04/26, 09:14:43] ERROR: El largo ingresado excede el máximo. <class 'error.LargoExcedidoError'>
+[2024/04/26, 09:15:43] ERROR: El largo ingresado excede el máximo. <class 'error.LargoExcedidoError'>
+[2024/04/26, 09:33:47] ERROR: <class 'error.LargoExcedidoError'>

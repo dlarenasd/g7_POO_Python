@@ -23,14 +23,15 @@ class Campaña(): #clase que instacia objetos campaña
         return self.__nombre
     @nombre.setter  #setter
     def nombre(self, nombre):
-    #  try: SI AQUÍ USO TRY/EXCEPT NO PUEDO USARLO EN EL OTRO SCRIPT, POR LO QUE NO GENERA UN ERROR.LOG
-            if len(nombre) <=250: #validación del largo del nombre de la campaña
+        #try: #SI AQUÍ USO TRY/EXCEPT NO PUEDO USARLO EN EL OTRO SCRIPT, POR LO QUE NO GENERA UN ERROR.LOG
+            if len(nombre) <=10: #validación del largo del nombre de la campaña
                 self.__nombre = nombre
                 return self.__nombre
             else: #si excede el límite se lanza un error específico del programa
-                raise LargoExcedidoError
-    # except LargoExcedidoError as error:
-    #     print(error)
+                print(f"ERROR: El largo ingresado excede el máximo. \n")
+                raise LargoExcedidoError("ERROR: El largo ingresado excede el máximo. \n")
+        #except LargoExcedidoError :
+        #    
 
     @property
     def fecha_inicio(self): #getter

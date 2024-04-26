@@ -32,13 +32,14 @@ Formato 3: {Anuncio.FORMATOS[2]}\n===============\nSubtipos:\n- {Social.SUB_TIPO
         return self.__sub_tipo
     @sub_tipo.setter #setter
     def sub_tipo(self, tipo):
-        # try: SI AQUÍ USO TRY/EXCEPT NO PUEDO USARLO EN EL OTRO SCRIPT, POR LO QUE NO GENERA UN ERROR.LOG
+        #try: #SI AQUÍ USO TRY/EXCEPT NO PUEDO USARLO EN EL OTRO SCRIPT, POR LO QUE NO GENERA UN ERROR.LOG
             if tipo not in self.SUB_TIPOS: #validación al modificar el sub-tipo, si está dentro de la tupla lo asigna
+                print(f"ERROR: El sub-tipo ingresado no corresponde con este anuncio. \n")
                 raise SubTipoInvalidoError #se lanza el error
             else: 
                 self.__sub_tipo = tipo
-        # except SubTipoInvalidoError as error:
-        #   print(error)
+        #except SubTipoInvalidoError as error:
+            #print("error")
             
     @property
     def ancho(self): #getter
